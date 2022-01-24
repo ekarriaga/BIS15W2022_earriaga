@@ -93,6 +93,8 @@ msleep %>%
   filter(vore== "omni")
 ```
 
+```
+
 ## `summarize()`
 `summarize()` will produce summary statistics for a given variable in a data frame. For example, if you are asked to calculate the mean of `sleep_total` for large and small mammals you could do this using a combination of commands, but it isn't very efficient or clean. We can do better!  
 ```{r}

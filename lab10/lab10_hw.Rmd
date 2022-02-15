@@ -102,8 +102,10 @@ names(deserts)
 6. Add another layer to your answer from #4 using `geom_point` to get an idea of how many measurements were taken for each species.
 ```{r}
 deserts%>%
-  ggplot(aes(x= weight, y= hindfoot_length))+
-  geom_point()+geom_jitter()
+  filter(weight!= "NA")%>%
+  ggplot(aes(x=species, y=weight))+
+  geom_point(na.rm = T)+ scale_y_log10()+
+  coord_flip()
 ```
 
 7. [Dipodomys merriami](https://en.wikipedia.org/wiki/Merriam's_kangaroo_rat) is the most frequently sampled animal in the study. How have the number of observations of this species changed over the years included in the study?
@@ -128,7 +130,7 @@ deserts%>%
   geom_point()+geom_jitter()
 ```
 
-9. Which two species have, on average, the highest weight? Once you have identified them, make a new column that is a ratio of `weight` to `hindfoot_length`. Make a plot that shows the range of this new ratio and fill by sex.
+9. Which two species have, on average, the highest weight? Once you have identified them, make a new column that is a ratio of `weight` to `hindfoot_length`. Make a plot that shows the range of this new ratio and fill by sex. to make a new column we have o use  mutate
 ```{r}
 deserts %>% 
   filter(species_id=="NL" | species_id=="DS") %>% 
@@ -139,6 +141,13 @@ deserts %>%
   labs(title = "Range of Weight/ Hindfoot Length for species NL and DS",
        x = "Species ID",
        y = "Weight/ Hindfoot Length")
+```
+```{r}
+deserts %>% 
+  filter(species_id=="NL" | species_id=="DS") %>% 
+  filter(weight!="NA" & hindfoot_length!="NA" & sex!="NA") %>% 
+  mutate(ratio=weight/hindfoot_length) %>% 
+  select(species_id, sex, weight, hindfoot_length, ratio)
 ```
 
 

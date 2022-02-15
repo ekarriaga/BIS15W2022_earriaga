@@ -170,7 +170,7 @@ I use `group` to make individual box plots for each taxon.
 ```{r}
 homerange %>% 
   ggplot(aes(x = class, y = log10.mass, group = taxon)) +
-  geom_boxplot()
+  geom_boxplot() #using color will only color the outline of the boxplots #fill works better than group since we are given a key #but using together can show different categorical data 
 ```
 
 I can also use `fill` to associate the different taxa with a color coded key.
